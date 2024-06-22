@@ -1,11 +1,8 @@
-import bcrypt from 'bcryptjs';
-
 import User from '../models/user.model.js';
 import generateToken from '../utils/generateToken.js';
 
 export const login = async (req, res) => {
 	const { username, password } = req.body;
-	console.log(req.body);
 
 	if (!username || !password) {
 		return res
@@ -13,15 +10,10 @@ export const login = async (req, res) => {
 			.json({ error: 'username or password not supplied' });
 	}
 
-	const salt = await bcrypt.genSalt(10);
-	const hashedPassword = await bcrypt.hash(password, salt);
+	const user = await User.findOne({ userName: username });
+	const isValidUser = await user.comparePassword(password);
 
-	const user = await User.findOne({
-		userName: username,
-		password: hashedPassword,
-	});
-
-	if (user) {
+	if (isValidUser) {
 		return res.status(200).json({
 			message: 'Success on login!',
 		});
@@ -50,9 +42,6 @@ export const signUp = async (req, res) => {
 			});
 		}
 
-		const salt = await bcrypt.genSalt(10);
-		const hashedPassword = await bcrypt.hash(password, salt);
-
 		const firstName = fullName.split(' ')[0];
 		const lastName = fullName.split(' ')[1];
 
@@ -61,8 +50,8 @@ export const signUp = async (req, res) => {
 		const newUser = new User({
 			fullName: fullName,
 			userName,
-			password: hashedPassword,
-			gender,
+			password,
+			gender, // password is hashed in the UserSchema middleware
 			profileImage: profileImage,
 		});
 
