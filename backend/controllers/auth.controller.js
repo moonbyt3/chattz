@@ -29,7 +29,15 @@ export const login = async (req, res) => {
 	}
 };
 
-export const logout = async (req, res) => {};
+export const logOut = (req, res) => {
+	try {
+		res.cookie('jwt', '', { maxAge: 0 });
+		res.status(200).json({ message: 'Log out success' });
+	} catch (error) {
+		console.log('Error in login controller', error.message);
+		res.status(400).json({ error: 'Internal server error.' });
+	}
+};
 
 export const signUp = async (req, res) => {
 	try {
@@ -82,8 +90,4 @@ export const signUp = async (req, res) => {
 			error: err.message,
 		});
 	}
-};
-
-export const logOut = (req, res) => {
-	console.log('log out');
 };
