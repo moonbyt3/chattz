@@ -1,0 +1,17 @@
+.message-container {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	padding-left: 0.75rem;
+}
+
+.no-chat-selected {
+	display: flex;
+	align-items: center;
+	height: 100%;
+}
+
+.no-chat-selected__wrapper {
+	width: 100%;
+	text-align: center;
+}

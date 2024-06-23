@@ -1,0 +1,8 @@
+.search-form {
+	display: flex;
+	margin-bottom: 0.5rem;
+
+	input {
+		width: calc(100% - 24px);
+	}
+}
