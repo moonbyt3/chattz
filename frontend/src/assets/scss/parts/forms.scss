@@ -1,0 +1,38 @@
+.form-row {
+}
+
+.form-row__item {
+	margin-bottom: 0.5rem;
+
+	label {
+		display: block;
+	}
+
+	input {
+		width: 100%;
+	}
+}
+
+.form-row__item-btn-wrapper {
+	display: flex;
+	&.centered {
+		justify-content: center;
+	}
+}
+
+.form-row__item-radio {
+	display: flex;
+}
+
+.form-row__item-radio-item {
+	display: flex;
+	margin-right: 0.5rem;
+
+	input {
+		margin: 0 0.25rem 0 0;
+	}
+
+	&:last-child {
+		margin-right: 0;
+	}
+}
